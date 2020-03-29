@@ -45,4 +45,3 @@ http {
 }
 ```
 
-This way we can run multiple aplications in the same server using docker swarm. Fuck with Kubernetes (for now).
