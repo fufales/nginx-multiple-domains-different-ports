@@ -1,8 +1,8 @@
-# Nginx Template
+# Nginx Multiple Domain Service - Docker
 With this template you can run multiple domains and point them to each port.
 
 ## Notes
-This is going to run into the container, out of the docker swarm to create sub urls.
+- This is going to run into the container, out of the docker swarm to create sub urls.
 
 ### Example
 
