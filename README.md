@@ -1,7 +1,6 @@
 # Nginx Template
 With this template you can run multiple domains and point them to each port.
 
-
 ## Notes
 This is going to run into the container, out of the docker swarm to create sub urls.
 
@@ -47,11 +46,3 @@ http {
 ```
 
 This way we can run multiple aplications in the same server using docker swarm. Fuck with Kubernetes (for now).
-
-
-## Authors
-* **Christopher Q.** - *Initial Work* .
-* **Jose C.** - *Initial Work* .
-
-## Copyright
-All licenses in this repository are copyrighted by their respective authors.
