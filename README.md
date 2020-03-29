@@ -1,32 +1,48 @@
-![](https://gitlab.com/eight-matter-clients/petdepot-multiservices-software/-/raw/master/assets/Nginx-banner.png)
+# Nginx Template
+With this template you can run multiple domains and point them to each port.
 
-# Notes
+
+## Notes
 This is going to run into the container, out of the docker swarm to create sub urls.
 
-### Examples
-- App citas `localhost/citas/`.
-- App peluqueria `localhost/peluqueria/`.
-- API `localhost/api/v1/`.
+### Example
 
 ```
-server {
-    listen       80;
+worker_processes  1;
 
-    ## Citas app
-    location ~ ^/citas/(.*)$ {
-        proxy_pass   http://192.168.99.106:3000/$1$is_args$args;
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+
+    keepalive_timeout  65;
+
+    server {
+        listen      80;
+        server_name domain1.com;
+        location / {
+            proxy_set_header   X-Real-IP $remote_addr;
+            proxy_set_header   Host      $http_host;
+            proxy_pass         http://127.0.0.1:8081;
+        }
+        root /var/www/domain1;
     }
 
-    ## Peluqueria app
-    location ~ ^/peluqueria/(.*)$ {
-        proxy_pass   http://192.168.99.106:3010/$1$is_args$args;
+    server {
+        listen       80;
+        server_name domain2.com;
+        location / {
+            proxy_set_header   X-Real-IP $remote_addr;
+            proxy_set_header   Host      $http_host;
+            proxy_pass         http://127.0.0.1:8082;
+        }
+        root /var/www/domain2;
     }
-
-    ## API
-    location ~ ^/api/v1/(.*)$ {
-        proxy_pass   http://192.168.99.106:3000/$1$is_args$args;
-    }
-
 }
 ```
 
